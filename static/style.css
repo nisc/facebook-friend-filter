@@ -1,0 +1,162 @@
+body {
+    color: white;
+    font-family: sans-serif;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    animation: woosh 2s 1;
+    -moz-animation: woosh 2s 1;
+    -webkit-animation: woosh 2s 1;
+    background: url('f_logo.png') 20px 30px no-repeat;
+    background-color: #3c5c99;
+}
+
+a {
+    color: #fff;
+}
+
+fieldset {
+    margin-bottom: .5em;
+    padding-top: .5em;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-color: #ddd;
+}
+
+fieldset#create_friendlist {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input[type=submit] {
+    margin-top: 1em;
+}
+
+input {
+    width: 100%;
+}
+
+select[name=sex] {
+    margin-top: .5em;
+}
+
+input[name=single] {
+    margin-top: .5em;
+    width: 15px;
+}
+
+input[name=age_min],
+input[name=age_max] {
+    width: 20%;
+}
+
+h1 {
+    margin-bottom: 0em;
+}
+
+h2 {
+    margin: 0em;
+}
+
+h3 {
+    margin-top: 0.6em;
+    font-size: smaller;
+}
+
+h4 {
+    margin-bottom: .2em;
+}
+
+#hints {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    margin-bottom: 1em;
+    max-width: 85%;
+}
+
+#disclaimer, #version {
+    font-size: small;
+}
+
+#version {
+    margin-top: 10pt;
+}
+
+#status_msg {
+    display: none;
+    font-weight: bold;
+    margin-bottom: .5em;
+}
+
+@keyframes woosh
+{
+    0% {
+        background-color: #3c5c99;
+    }
+    25% {
+        background-color: #6d85b4;
+        transform: rotate(180deg);
+    }
+    50% {
+        transform: scale(1.5, 1.5);
+    }
+    75% {
+        transform: rotate(-180deg);
+    }
+    85% {
+        background-color: #6d85b4;
+    }
+    100% {
+        background-color: #3c5c99;
+    }
+}
+
+@-moz-keyframes woosh
+{
+    0% {
+        background-color: #3c5c99;
+    }
+    25% {
+        background-color: #6d85b4;
+        -moz-transform: rotate(180deg);
+    }
+    50% {
+        -moz-transform: scale(1.5, 1.5);
+    }
+    75% {
+        -moz-transform: rotate(-180deg);
+    }
+    85% {
+        background-color: #6d85b4;
+    }
+    100% {
+        background-color: #3c5c99;
+    }
+}
+
+@-webkit-keyframes woosh
+{
+    0% {
+        background-color: #3c5c99;
+    }
+    25% {
+        background-color: #6d85b4;
+        -webkit-transform: rotate(180deg);
+    }
+    50% {
+        -webkit-transform: scale(1.5, 1.5);
+    }
+    75% {
+        -webkit-transform: rotate(-180deg);
+    }
+    85% {
+        background-color: #6d85b4;
+    }
+    100% {
+        background-color: #3c5c99;
+    }
+}

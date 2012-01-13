@@ -1,0 +1,8 @@
+bin
+build
+local
+src
+include
+lib
+.Python
+*.pyc

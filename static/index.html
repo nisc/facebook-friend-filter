@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="description" content="Automatically create Facebook Friend Lists and target your Social Media activity">
+    <meta name="keywords" content="facebook, friendlist, friendslist, geo, foreign language, german, english, filter, GraphAPI is a bitch">
+    <meta name="title" content="Friend Filter for Facebook">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <title>Friend Filter for Facebook</title>
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <script src="./index.js"></script>
+
+    <h1>Friend Filter</h1>
+    <h2>for Facebook</h2>
+    <h3>Filter 'em like crazy!</h3>
+
+    <div id="status_msg"></div>
+
+    <form action="#" id="create_list">
+      <h4>Location and language</h4>
+      <fieldset>
+        <input name="countries" type="text" placeholder="Country names (comma separated)" />
+        <input name="languages" type="text" placeholder="Spoken languages (comma separated)" />
+        <input name="locale" type="text" placeholder="Facebook page language settings (e.g., 'en' or 'de')" />
+      </fieldset>
+      <h4>Age and sex</h4>
+      <fieldset>
+        <input name="age_min" type="number" min="0" max="130" placeholder="Min age" />
+        <input name="age_max" type="number" min="0" max="130" placeholder="Max age" /><br>
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex">
+          <option value="">idc</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+        <input id="single" name="single" type="checkbox" />
+        <label for="single">Only singles?</label>
+      </fieldset>
+
+      <h4>Create a custom friend list</h4>
+      <fieldset id="create_friendlist">
+        <input name="list_name" type="text" id="list_name" placeholder="Name of the new list" /><br>
+        <input type="submit" name="submit" value="Do it!" />
+      </fieldset>
+    </form>
+    <div id="hints">
+      <ul>
+        <li>Many of your friends don't provide enough information, so please don't expect perfect results. I'm not Google. Yet.</li>
+        <li>But don't worry: You can still edit friend lists later.</li>
+      </ul>
+    </div>
+    <div id="disclaimer">
+      <strong>Disclaimer:</strong> This is a free service. Absolutely no guarantees given. Use at your own risk. I don't store <em>any</em> user data on my servers.<br>
+      TL; DR: <strong>I'm really SCARED. Please don't sue <a href="http://nkls.schmckr.de">Niklas</a>.</strong>
+    </div>
+    <div id="version">
+      v0.1.337 RC23
+    </div>
+  </body>
+</html>

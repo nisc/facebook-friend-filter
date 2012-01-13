@@ -59,7 +59,7 @@ def get_friends_info(token):
 
 def is_in(orig, sequence, thresh=0.63):
     """Return true if original is close to an item in sequence"""
-    orig= orig.lower()
+    orig = orig.lower()
     sequence = [item.lower() for item in sequence]
     for item in sequence:
         if smatcher(a=orig, b=item, autojunk=False).quick_ratio() > thresh:
@@ -77,17 +77,16 @@ def match_locales(locales, friends):
 
 
 def match_countries(countries, friends):
-    """Filter by cur_country and home_country (additive)
-
-    May return duplicates (beautiful code later, this is a hackathon!!)
-
-    """
-    returnme = []
+    """Filter by cur_country and home_country (additive)"""
     countries = map(lambda c: c.strip(), countries.split(','))
-    for field_name in ['current_location', 'hometown_location']:
-        returnme += filter(lambda f: f[field_name] and \
-                is_in(f[field_name].get('country'), countries), friends)
-    return returnme
+    return filter(
+            lambda f: # check for each friend 'f' if countries match
+            (f['current_location'] and \
+                    is_in(f['current_location'].get('country'), countries)) or
+            (f['hometown_location'] and \
+                    is_in(f['hometown_location'].get('country'), countries)),
+            friends
+            )
 
 
 def match_languages(languages, friends):

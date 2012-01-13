@@ -32,7 +32,7 @@ def page_not_found(error):
 
 @app.route('/create', methods=['POST', 'GET'])
 def create():
-    try: # some good old manual cookie parsing
+    try:
         token = fb.get_user_from_cookie(
                     request.cookies,
                     os.environ['APP_ID'],

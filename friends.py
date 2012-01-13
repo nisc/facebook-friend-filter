@@ -195,6 +195,7 @@ def filter_friends(info,
 
 
 def create_friends_list(list_name, uids, token):
+    """Creates a new friend list with the given uids"""
     list_name = list_name[:25].strip() # facebook limitation
 
     res = requests.post(GRAPH_API+'/me/friendlists',
@@ -237,9 +238,11 @@ def create_friends_list(list_name, uids, token):
 
 
 def del_all_user_created_lists_for_token(token):
+    """Deletes all user-created lists, useful during testing"""
     params = {'access_token': token}
     lists = requests.get(GRAPH_API+'/me/friendlists', params=params)
     lists = json.loads(lists.content)['data']
     delme = [li['id'] for li in lists if li['list_type'] == 'user_created']
-    return [requests.delete( GRAPH_API + '/' + id, params=params ) \
+    jobs = [gevent.spawn(requests.delete, GRAPH_API+'/'+id, params=params) \
             for id in delme]
+    return gevent.joinall(jobs)

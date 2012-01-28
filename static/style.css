@@ -1,3 +1,5 @@
+.ui-autocomplete-loading { background: white url('ui-anim.gif') right center no-repeat; }
+
 body {
     color: white;
     font-family: sans-serif;

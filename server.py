@@ -21,7 +21,7 @@ def call_backend(token, params):
     if len(uids) < 1:
         return None
 
-    message = params.get('message')
+    message = params.get('message', '').strip()
     if message:
         # make a wallpost
         post_id = friends.make_wallpost(message, uids, token)
@@ -29,8 +29,10 @@ def call_backend(token, params):
         return None
     else:
         # create a friend list
-        list_name = params.get('list_name',
-                ''.join([random.choice(string.letters) for x in range(5)]))
+        list_name = params.get('list_name', '').strip()
+        if not list_name:
+            list_name = ''.join([random.choice(string.letters) \
+                    for x in range(5)])
         list_id = friends.create_friends_list(list_name, uids, token)
         logging.info('List ID: %s' % list_id)
         return list_id

@@ -71,8 +71,8 @@ window.fbAsyncInit = function() {
         });
 
         post_data = form.serializeArray();
-        post_data.push({name: 'message', value: message.val() || null});
-        post_data.push({name: 'list_name', value: list_name.val() || null});
+        post_data.push({name: 'message', value: message.val()});
+        post_data.push({name: 'list_name', value: list_name.val()});
         $.post('./create', $.param(post_data)).success(function(data) {
           var list_id = data['list_id']
           , link = 'https://facebook.com/';

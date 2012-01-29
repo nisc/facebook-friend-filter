@@ -2,7 +2,7 @@
 ## For Facebook
 ### What does it do?
 
-*Friend Filter* filters your Facebook friends based on certain criteria. It can create custom Facebook friend lists. A live demo is hosted [here](http://friend.herokuapp.com).
+*Friend Filter* filters your Facebook friends based on certain criteria. It can (a) create custom Facebook friend lists and (b) publish wall posts that are only visible to matching friends. A live demo is hosted [here](http://friend.herokuapp.com).
 
 The following filter criteria are currently supported:
 

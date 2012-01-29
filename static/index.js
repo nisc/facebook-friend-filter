@@ -8,6 +8,7 @@ window.fbAsyncInit = function() {
   });
 
   var status_msg  = $('#status_msg')
+    , mask        = $('#mask')
     , form        = $('#create_list')
     , countries   = form.find('input[name="countries"]')
     , languages   = form.find('input[name="languages"]')
@@ -31,11 +32,18 @@ window.fbAsyncInit = function() {
     }
   });
 
-  var name    = dialog1.find('input[name="list_name"]')
-    , message = dialog2.find('textarea');
+  var list_name = dialog1.find('input')
+    , message   = dialog2.find('textarea');
 
-  $('input[name=make_friendlist]').click(function() { dialog1.dialog('open') });
-  $('input[name=make_wallpost]').click(function() { dialog2.dialog('open') });
+  $('button#make_friendlist').click(function() {
+    list_name.val('');
+    dialog1.dialog('open')
+  });
+
+  $('button#make_wallpost').click(function() {
+    message.val('');
+    dialog2.dialog('open')
+  });
 
   form.submit(function(e) {
     e.preventDefault();
@@ -46,11 +54,11 @@ window.fbAsyncInit = function() {
       if(single.val()) perms.push('friends_relationships');
       if(age_min.val() || age_max.val()) perms.push('friends_birthday');
 
-      if(!name.val()) {
-        name.val(String(new Date().getTime()));
+      if(!list_name.val()) {
+        list_name.val(String(new Date().getTime()));
       }
 
-      form.slideUp('slow');
+      mask.slideUp('slow');
       status_msg.fadeOut('slow', function() {
         status_msg.text('Getting authorization ..').fadeIn('slow');
       });
@@ -75,7 +83,7 @@ window.fbAsyncInit = function() {
               status_msg
               .text('Failure! Try again?')
               .fadeIn('slow', function() {
-                form.slideDown('slow');
+                mask.slideDown('slow');
               });
             });
             console.log('Unholy shit, it did not work!');
@@ -86,7 +94,7 @@ window.fbAsyncInit = function() {
           status_msg.fadeOut('slow', function() {
             status_msg.text('No permissions, no fun. Sorry.').fadeIn('slow');
           });
-          form.slideDown('slow');
+          mask.slideDown('slow');
         }
       }, {scope: perms.join(',')}); // only request required permissions
     return false;

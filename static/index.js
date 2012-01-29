@@ -31,9 +31,7 @@ window.fbAsyncInit = function() {
     }
   });
 
-  var submit1 = dialog1.find('input[name="submit"]')
-    , name1   = dialog1.find('input[name="list_name"]')
-    , submit2 = dialog2.find('input[name="submit"]')
+  var name    = dialog1.find('input[name="list_name"]')
     , message = dialog2.find('textarea');
 
   $('input[name=make_friendlist]').click(function() { dialog1.dialog('open') });
@@ -48,8 +46,8 @@ window.fbAsyncInit = function() {
       if(single.val()) perms.push('friends_relationships');
       if(age_min.val() || age_max.val()) perms.push('friends_birthday');
 
-      if(!name1.val()) {
-        name1.val(String(new Date().getTime()));
+      if(!name.val()) {
+        name.val(String(new Date().getTime()));
       }
 
       form.slideUp('slow');

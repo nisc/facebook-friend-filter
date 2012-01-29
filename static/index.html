@@ -24,6 +24,14 @@
     <div id="status_msg"></div>
 
     <form action="#" id="create_list">
+      <div id="dialog_list" title="Name of the new list" style="display: none;">
+        <input name="list_name" type="text" />
+      </div>
+
+      <div id="dialog_post" title="Message" style="display: none;">
+        <textarea name="message"></textarea>
+      </div>
+
       <h4>Location and language</h4>
       <fieldset>
         <input name="countries" type="text" placeholder="Country names (comma separated)" />
@@ -43,13 +51,14 @@
         <input id="single" name="single" type="checkbox" />
         <label for="single">Only singles?</label>
       </fieldset>
-
-      <h4>Create a custom friend list</h4>
-      <fieldset id="create_friendlist">
-        <input name="list_name" type="text" id="list_name" placeholder="Name of the new list" /><br>
-        <input type="submit" name="submit" value="Do it!" />
-      </fieldset>
     </form>
+
+    <div>
+      <h4>And now?</h4>
+      <input type="button" name="make_friendlist" value="Create a FriendList" />
+      <input type="button" name="make_wallpost" value="Make a wallpost" />
+    </div>
+
     <div id="hints">
       <ul>
         <li>Many of your friends don't provide enough information, so please don't expect perfect results. I'm not Google. Yet.</li>

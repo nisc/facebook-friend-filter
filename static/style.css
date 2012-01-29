@@ -27,18 +27,13 @@ fieldset {
     border-color: #ddd;
 }
 
-fieldset#create_friendlist {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-input[type=submit] {
-    margin-top: 1em;
+input[name=make_friendlist],
+input[name=make_wallpost] {
+    width: 40%;
 }
 
 input {
-    width: 100%;
+    width: 97%;
 }
 
 select[name=sex] {

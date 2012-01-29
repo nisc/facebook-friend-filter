@@ -194,6 +194,23 @@ def filter_friends(info,
     return list(ids_geo.intersection(ids_sex))
 
 
+def make_wallpost(message, uids, token):
+    """Creates a new wall post only visible to the given uids"""
+    privacy = {
+            'value': 'CUSTOM',
+            'friends': 'SOME_FRIENDS',
+            'allow': ','.join(map(str, uids)),
+            }
+
+    res = requests.post(GRAPH_API+'/me/feed', data={
+        'access_token': token,
+        'message': message,
+        'privacy': json.dumps(privacy),
+        }).content
+
+    return json.loads(res)
+
+
 def create_friends_list(list_name, uids, token):
     """Creates a new friend list with the given uids"""
     list_name = list_name[:25].strip() # facebook limitation
@@ -204,7 +221,6 @@ def create_friends_list(list_name, uids, token):
     if res.ok:
         res = json.loads(res.content)
         list_id = res['id']
-        logging.info('List id: %s' % str(list_id))
     elif res.status_code == 400:
         logging.error('Could not create list. Duplicate name?')
         raise Exception(res.content)

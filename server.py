@@ -8,7 +8,7 @@ import werkzeug.serving
 
 import logging
 logging.basicConfig(level=logging.INFO)
-import os
+import os, string, random
 import facebook as fb
 import friends
 
@@ -20,9 +20,20 @@ def call_backend(token, params):
     uids = friends.filter_friends(info, **params)
     if len(uids) < 1:
         return None
+
+    message = params.get('message')
+    if message:
+        # make a wallpost
+        post_id = friends.make_wallpost(message, uids, token)
+        logging.info('Post ID: %s' % post_id)
+        return None
     else:
-        list_name = params.get('list_name', 'Default')
-        return friends.create_friends_list(list_name, uids, token)
+        # create a friend list
+        list_name = params.get('list_name',
+                ''.join([random.choice(string.letters) for x in range(5)]))
+        list_id = friends.create_friends_list(list_name, uids, token)
+        logging.info('List ID: %s' % list_id)
+        return list_id
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -48,13 +59,8 @@ def create():
 
     try:
         list_id = call_backend(token, request.form.to_dict())
-        if list_id:
-            return jsonify({'status':'ok', 'list_id': list_id})
-        else:
-            resp = jsonify({'status':'err', 'msg':'No matches!'})
-            resp.status_code = 402
-            return resp
-    except Exception as e: # to the unit tests, please
+        return jsonify({'status':'ok', 'list_id': list_id})
+    except Exception as e: # unit tests, please
         logging.error(e)
         resp = jsonify({'status':'err'})
         resp.status_code = 500

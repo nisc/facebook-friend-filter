@@ -46,57 +46,59 @@ window.fbAsyncInit = function() {
   });
 
   form.submit(function(e) {
+    var perms;
     e.preventDefault();
-    var perms = ['manage_friendlists', 'read_friendlists'];
-    if(languages.val()) perms.push('friends_likes');
-    if(countries.val()) perms = perms.concat(['friends_location',
-      'friends_hometown']);
-      if(single.val()) perms.push('friends_relationships');
-      if(age_min.val() || age_max.val()) perms.push('friends_birthday');
+    if (message.val()) {
+      perms = ['publish_stream'];
+    } else {
+      perms = ['manage_friendlists', 'read_friendlists'];
+    }
+    if (languages.val()) perms.push('friends_likes');
+    if (countries.val()) perms = perms.concat(['friends_location', 'friends_hometown']);
+    if (single.val()) perms.push('friends_relationships');
+    if (age_min.val() || age_max.val()) perms.push('friends_birthday');
 
-      if(!list_name.val()) {
-        list_name.val(String(new Date().getTime()));
+    mask.slideUp('slow');
+    status_msg.fadeOut('slow', function() {
+      status_msg.text('Getting authorization ..').fadeIn('slow');
+    });
+
+    FB.login(function(response) {
+      var post_data;
+      if (response.authResponse) {
+        status_msg.fadeOut('slow', function() {
+          status_msg.text('Loading ..').fadeIn('slow');
+        });
+
+        post_data = form.serializeArray();
+        post_data.push({name: 'message', value: message.val() || null});
+        post_data.push({name: 'list_name', value: list_name.val() || null});
+        $.post('./create', $.param(post_data)).success(function(data) {
+          var list_id = data['list_id']
+          , link = 'https://facebook.com/';
+          status_msg.fadeOut('slow', function() {
+            if (list_id) link += 'lists/' + list_id;
+            status_msg.html('Success! Go to <a href="' + link +
+                            '">Facebook</a> and enjoy.').fadeIn('slow');
+          });
+          console.log('Holy shit, it worked!');
+        }).fail(function() {
+          status_msg.fadeOut('slow', function() {
+            status_msg
+            .text('Failure! Try again?')
+            .fadeIn('slow', function() {
+              mask.slideDown('slow');
+            });
+          });
+          console.log('Unholy shit, it did not work!');
+        });
+      } else { // user did not authorize
+        status_msg.fadeOut('slow', function() {
+          status_msg.text('No permissions, no fun. Sorry.').fadeIn('slow');
+        });
+        mask.slideDown('slow');
       }
-
-      mask.slideUp('slow');
-      status_msg.fadeOut('slow', function() {
-        status_msg.text('Getting authorization ..').fadeIn('slow');
-      });
-
-      FB.login(function(response) {
-        if (response.authResponse) {
-          status_msg.fadeOut('slow', function() {
-            status_msg.text('Loading ..').fadeIn('slow');
-          });
-
-          $.post('./create', form.serialize()).success(function(data) {
-            var list_id = data['list_id'];
-            status_msg.fadeOut('slow', function() {
-              status_msg
-              .html('Success! Go to <a href="https://facebook.com/lists/'
-              +list_id+'">Facebook</a> and enjoy.')
-              .fadeIn('slow');
-            });
-            console.log('Holy shit, it worked!');
-          }).fail(function() {
-            status_msg.fadeOut('slow', function() {
-              status_msg
-              .text('Failure! Try again?')
-              .fadeIn('slow', function() {
-                mask.slideDown('slow');
-              });
-            });
-            console.log('Unholy shit, it did not work!');
-          }).always(function() {
-            // pass
-          });
-        } else { // user did not authorize
-          status_msg.fadeOut('slow', function() {
-            status_msg.text('No permissions, no fun. Sorry.').fadeIn('slow');
-          });
-          mask.slideDown('slow');
-        }
-      }, {scope: perms.join(',')}); // only request required permissions
+    }, {scope: perms.join(',')}); // only request required permissions
     return false;
   });
 };

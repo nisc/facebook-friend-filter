@@ -26,7 +26,7 @@ window.fbAsyncInit = function() {
 
   var dialog2 = $('#dialog_post').dialog({
     autoOpen: false,
-    resizable: false,
+    resizable: true,
     buttons: {
       'Post it!': function() { form.submit(); $(this).dialog('close'); }
     }

@@ -32,7 +32,8 @@ input[name=make_wallpost] {
     width: 40%;
 }
 
-input {
+input,
+textarea {
     width: 97%;
 }
 

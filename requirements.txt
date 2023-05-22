@@ -1,4 +1,4 @@
 Flask==1.0
 gevent==0.13.6
-requests==2.20.0
+requests==2.31.0
 -e git+https://github.com/pythonforfacebook/facebook-sdk.git@797d067dec8d5a2c19714b705953b52505611fba#egg=facebook_sdk-0.2.0-py2.7-dev
